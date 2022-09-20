@@ -43,4 +43,20 @@ where the value of $h$ must be determined. In order to find h you may use the fa
 
 ### Assignment 1 - Monte Carlo methods  
 
+#### 1. Background
+
+##### 1.1 Stock options
+
+Consider the equation for geometric Bornwian motion, as used to model the path of an underlying asset paying proportional dividends at a continuous rate $D_{0}$:
+$$dS=(\mu-D_{0})Sdt+\sigma SdW, \hspace{10mm}(1)$$
+where $dW$ is the increment of a Weiner process (drawn from a Normal distribution with mean zero and standard deviation $\sqrt{dt}$); we may then write that
+$$dW = \phi\sqrt{dt}, \hspace{10mm}(2)$$
+where $\phi$ is a random variable drawn from a normalised Normal distribution.  
+Using (2) and risk neutrality, (1) can be integrated exactly over a timescale $\delta t$ (NOT necessarily small) to yield
+$$S(t+\delta t)=S(t)\text{exp}\left[(r-D_{0}-\frac{1}{2}\sigma^{2})\delta t+\sigma\phi\sqrt{\delta t}\right]. \hspace{10mm}(3)$$
+Equation (3) then generates a random path. Since $\delta t$ need not be small, in the case of European options, it is possible to generate a (random) value of S at expiry ($t=T$) in just one step (i.e $\delta t = T$). From this value (say $S(T)$), the payoff can then be easily calculated.  
+
+##### 1.2 European options
+
+
 ### Assignmnet 2 - Advanced methods  
