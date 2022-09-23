@@ -48,15 +48,46 @@ where the value of $h$ must be determined. In order to find h you may use the fa
 ##### 1.1 Stock options
 
 Consider the equation for geometric Bornwian motion, as used to model the path of an underlying asset paying proportional dividends at a continuous rate $D_{0}$:
-$$dS=(\mu-D_{0})Sdt+\sigma SdW, \hspace{10mm}(1)$$
+$$dS=(\mu-D_{0})Sdt+\sigma SdW, \qquad (1)$$
 where $dW$ is the increment of a Weiner process (drawn from a Normal distribution with mean zero and standard deviation $\sqrt{dt}$); we may then write that
-$$dW = \phi\sqrt{dt}, \hspace{10mm}(2)$$
+$$dW = \phi\sqrt{dt}, \qquad (2)$$
 where $\phi$ is a random variable drawn from a normalised Normal distribution.  
 Using (2) and risk neutrality, (1) can be integrated exactly over a timescale $\delta t$ (NOT necessarily small) to yield
-$$S(t+\delta t)=S(t)\text{exp}\left[(r-D_{0}-\frac{1}{2}\sigma^{2})\delta t+\sigma\phi\sqrt{\delta t}\right]. \hspace{10mm}(3)$$
+$$S(t+\delta t)=S(t)\text{exp}\left[(r-D_{0}-\frac{1}{2}\sigma^{2})\delta t+\sigma\phi\sqrt{\delta t}\right]. \qquad (3)$$
 Equation (3) then generates a random path. Since $\delta t$ need not be small, in the case of European options, it is possible to generate a (random) value of S at expiry ($t=T$) in just one step (i.e $\delta t = T$). From this value (say $S(T)$), the payoff can then be easily calculated.  
 
 ##### 1.2 European options
+Note that because the stock is paying dividends it makes the value of holding a share a little difference since cash dividend payments are made to stock holders. We assume here that all contracts in the portfolio are options, so that \textbf{no} cash payments are received by the owner of the portfolio. Here we may price the options in the portfolio according to the following formula:  
+1. Assume that
+$$d_{1}=\frac{\text{ln}(S/X)+(r-D_{0}+\sigma^{2}/2)(T-t)}{\sigma\sqrt{T-t}},$$
+$$d_{2} = d_{1}-\sigma\sqrt{T-t}.$$
+2. A put option P with terminal condition
+$$P(S, T) = \text{max}(X-S, 0)$$
+has the analytic solution
+$$P(S, t) = Xe^{-r(T-t)}N(-d_{2})-Se^{-D_{0}(T-t)}N(-d_{1}).$$
+3. A call option C with terminal conditions
+$$C(S, T) = \text{max}(S-X,0)$$
+has an analytic solution
+$$C(S,t)=Se^{-D_{0}(T-t)}N(d_{1})-Xe^{-r(T-t)}N(d_{2}).$$
+4. A binary put option BP with terminal conditions
+$$BP(S,T) = 1 \qquad \text{if} \qquad S \leq X \qquad \text{or} \qquad 0 \qquad \text{if} \qquad S > X$$
+has the analytic solution
+$$BP(S,t) = e^{-r(T-t)}N(-d_{2}).$$
+5. A binary call option BC with terminal conditions
+$$BC(S,T) = 0 \qquad \text{if} \qquad S \leq X \qquad \text{or} \qquad 1 \qquad \text{if} \qquad S > X$$
+has the analytic solution
+$$BC(S,t) = e^{-r(T-t)}N(d_{2}).$$
+6. If there is a payoff at maturity which is equal to the stock price, this is equivalent to the value of a call option with strike ($X=0$) so that
+$$C(S, T; X=0) = S$$
+and 
+$$C(S, t; X=0) = Se^{-D_{0}(T-t)}=e^{-r(T-t)}F_{t,T}$$
+which is the discounted futures price $F_{t,T}$.  
 
+If this payoff of a portolio is denoted as $\Pi_{i}(t=T)$ (for the $i^{th}$ simulation), then the value of this payoff at $t=0$ is
+$$\Pi_{i}(t=0)=\Pi_{i}(t=T)e^{-rT}. \qquad (4)$$
+If N simulations are performed, then we merely average out the $\Pi_{i}(t=0)$ to yield an approximation for the value of the portfolio, i.e
+$$\Pi = \frac{\sum_{i=1}{}^{N}\Pi_{i}(t=0)}{N}. \qquad (5)$$
+
+##### 1.2 Path Dependent Options
 
 ### Assignmnet 2 - Advanced methods  
